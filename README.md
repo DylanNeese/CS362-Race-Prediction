@@ -1,7 +1,6 @@
-# CS362-Race-Prediction
 # Race Time Prediction Using Machine Learning
 **CS 362 – Artificial Intelligence and Machine Learning | Spring 2026**  
-**Group Project – Supporting Document**
+**Group Project – Dylan, Helena**
 
 ---
 
@@ -37,7 +36,7 @@ After training, the model can take new input data it has never seen and produce 
 A model is only useful if its predictions are accurate enough for the intended application. Common evaluation metrics for regression models include Mean Absolute Error (MAE), which measures the average size of prediction errors in the same units as the output, and R² (coefficient of determination), which measures how well the model explains the variance in the target variable. A perfect model would have MAE of 0 and R² of 1.0.
 
 **Overfitting and Data Limitations**  
-Because our dataset is intentionally small (four rows), the model will fit the training data very closely but may not generalize well to new runners with very different profiles. This is a useful teaching moment: more data, more features, and proper train/test splitting all improve real-world model reliability.
+Because our dataset is intentionally small (15 rows), the model will fit the training data very closely but may not generalize well to new runners with very different profiles. This is a useful teaching moment: more data, more features, and proper train/test splitting all improve real-world model reliability.
 
 ---
 
@@ -47,11 +46,11 @@ Our 20–30 minute lesson is structured to move students from intuition to imple
 
 We open with a brief warm-up discussion asking students to predict what factors affect race performance. This activates prior knowledge and mirrors what data scientists do when selecting features — starting with domain understanding before touching any data. It also surfaces any misconceptions early.
 
-From there, we introduce the concept of supervised learning with a simple analogy: a coach who reviews an athlete's training log and, based on past patterns, estimates what they will run next weekend. The model does the same thing, but mathematically. We show students the dataset — four rows of training data with three input columns and one output column — and ask them to spot the pattern before the algorithm does. Most students will correctly notice that more mileage and faster training pace correspond to faster race times.
+From there, we introduce the concept of supervised learning with a simple analogy: a coach who reviews an athlete's training log and, based on past patterns, estimates what they will run next weekend. The model does the same thing, but mathematically. We show students the dataset — 15 rows of training data with three input columns and one output column — and ask them to spot the pattern before the algorithm does. Most students will correctly notice that more mileage and faster training pace correspond to faster race times.
 
 We then walk through the Python code step by step, explaining what each line does conceptually rather than syntactically. The `model.fit()` call is the moment the model "learns." The `model.predict()` call is the moment it applies what it learned to new data. We explain the linear equation the model builds internally — how it assigns a weight to each feature based on how predictive that feature is — without requiring students to understand the underlying linear algebra.
 
-The individual activity reinforces this by having students run the code themselves, record their predicted output, and answer analytical questions about the model's behavior. An extension challenge asks them to modify one input variable and explain how and why the prediction changes, which directly tests conceptual understanding.
+The individual activity reinforces this by having students review the weights the model learned and answer analytical questions about what each weight means. An extension challenge asks them to predict how changing one input variable would affect the outcome, which directly tests conceptual understanding.
 
 We close with a discussion of real-world applications and limitations: professional sports teams using ML for injury prevention, pace planning in marathon racing, and the ethical considerations of using algorithmic predictions to make decisions about athletes.
 
@@ -80,20 +79,32 @@ Géron, A. (2022). *Hands-on machine learning with Scikit-Learn, Keras, and Tens
 ```
 /
 ├── README.md              ← This file (supporting document)
-├── /slides                ← PowerPoint presentation
-├── /activity              ← Student handout (Word doc)
-├── /code                  ← Python prediction script
-└── /docs                  ← Additional reference materials
+├── /activity              ← Student handout and answer key
+│   ├── Race_Prediction_Activity.docx
+│   └── Activity_Answer_Key.docx
+├── /code                  ← Python prediction script and dataset
+│   ├── Predict.py
+│   └── data.csv
+└── /slides                ← PowerPoint presentation
+    └── Race_Time_Prediction.pptx
 ```
+
+---
 
 ## Running the Code
 
 Requirements: Python 3.8+, pandas, scikit-learn
 
 ```bash
+# Mac
+pip3 install pandas scikit-learn
+cd code
+python3 Predict.py
+
+# Windows
 pip install pandas scikit-learn
 cd code
-python predict.py
+python Predict.py
 ```
 
-The script loads `data.csv`, trains a linear regression model, and outputs a predicted race time for a sample runner.
+The script loads `data.csv`, trains a linear regression model on 15 rows of runner training data, displays the model weights, and prompts you to enter your own stats to get a predicted race time. All times are entered in MM:SS format.
